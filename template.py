@@ -1,5 +1,6 @@
 ############################# NO TOCAR ESTE CÓDIGO ############################
 from random import randint
+from time import time
 
 
 
@@ -31,9 +32,11 @@ respuesta3 = "s"
 respuesta4 = ""
 respuesta5 = ""
 respuestaFinal = ""
+JugarDoble = ""
 
 while respuestaFinal.lower() != "n":
     respuesta4 = ""
+    respuesta3 = "s"
     respuesta1 = input('Quiere juegar? (s/n) ')    
     if respuesta1.lower() == "s" :
         respuesta2 = input('Desea apostar?(s/n) ')
@@ -42,16 +45,19 @@ while respuestaFinal.lower() != "n":
             print('El crupier a sacado un' ,mano_crupier[-1])
             print(f"Usted tiene {billetera}")
             apuesta = input('Cuanto quiere apostar? ')
-            respuesta4 = "s"
-            while billetera >= 0 and respuesta2.lower() == "s":
-                if int(apuesta) <= billetera and respuesta3 == "s":
+            while billetera >= 0:
+                if int(apuesta) > billetera:
+                    while int(apuesta) > billetera:
+                        print(f'No tiene ese dinero, solo posee {billetera}')  #deberia ir un while
+                        apuesta = input('Ingrese otra apuesta ')
+                        if int(apuesta) < billetera:
+                            break
+                        else:
+                            continue
+                if int(apuesta) <= billetera:
                     billetera = billetera - int(apuesta)
                     print('Empieza el juego')
                     while respuesta3.lower() == "s":
-                        if int(apuesta) > billetera:
-                            print(f'No posee el dinero suficiente para jugar doble o nada')
-                            respuesta4 = "n"
-                            break
                         mano_jugador.append( sacar_carta())
                         print('Su carta es un:', mano_jugador[-1])
                         print('Hasta ahora tiene' , sum(mano_jugador) , "puntos")
@@ -78,12 +84,18 @@ while respuestaFinal.lower() != "n":
                     if sum(mano_crupier) > sum(mano_jugador) and sum(mano_crupier) <= 21:
                         print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
                         print("La partida termina, gana la banca")
-                        print(f"Ahora tienes{billetera}")
+                        print(f"Ahora tienes {billetera}")
+                        respuesta5 = input("Quiere jugar a doble o nada? (s/n)")
                         mano_crupier.clear()
                         mano_jugador.clear()
-                        respuesta4 = "n"
-                        break
-                    if sum(mano_crupier) < sum(mano_jugador) and sum(mano_crupier) <= 21:
+                        if respuesta5.lower() == "s":
+                            int(apuesta)*2
+
+                            continue
+                        else:
+                            respuesta4 = "n"
+                            break
+                    if (sum(mano_crupier) < sum(mano_jugador) and sum(mano_crupier) <= 21) or sum(mano_crupier)>= 22 :
                         print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
                         print(f"La partida termino, has ganado {int(apuesta)}")
                         billetera = billetera + int(apuesta)*2
@@ -92,7 +104,7 @@ while respuestaFinal.lower() != "n":
                         mano_jugador.clear()
                         break
                 if respuesta4.lower() == "n":
-                    break             
+                    break
         if respuesta2 == "n":
             print("Bueno, pratiquemos entonces")
             while respuesta2.lower() == "n":
@@ -131,8 +143,11 @@ while respuestaFinal.lower() != "n":
                             break
                 if respuesta4.lower() == "n":
                         break
+            if billetera < 0:
+                print(f"No le queda mas dinero, usted nos debe {billetera}, larguese de aqui")
+                exit()
     if respuesta1 == "n":
         print(f"Se queda con {billetera}")
         print("Lo esperamos la proxima")
         respuestaFinal = "n"
-            
+
