@@ -33,14 +33,15 @@ respuestaFinal = ""
 
 while respuestaFinal.lower() != "n":
     respuesta1 = input('Quiere juegar? (s/n) ')    
-    if respuesta1.lower() == 'si' :
+    if respuesta1.lower() == "s" :
         respuesta2 = input('Desea apostar?(s/n) ')
-        if respuesta2.lower() == 'si' :
+        if respuesta2.lower() == "s" :
             mano_crupier.append( sacar_carta())
             print('El crupier a sacado un' ,mano_crupier[-1])
-            apuesta = input('Cuanto quiere apostar? ')  
+            apuesta = input('Cuanto quiere apostar? ')
+            respuesta4 = "s"
             while billetera > 0 and respuesta2.lower() == "s":
-                if int(apuesta) <= billetera:
+                if int(apuesta) <= billetera and respuesta3 == "s":
                     billetera = billetera - int(apuesta)
                     print('Empieza el juego')
                     while respuesta3.lower() == "s":
@@ -52,24 +53,31 @@ while respuestaFinal.lower() != "n":
                             continue
                         if sum(mano_jugador) > 21:
                             print("La partida termina, gana la banca")
-                            respuesta4 = input("Quiere seguir jugando? (s/n) ")
                             print(f"Le quedan {billetera}")
-                            if respuesta4.lower() == "s":
-                                continue
-                            else:
-                                break
+                            mano_jugador.clear()
+                            mano_crupier.clear()
+                            respuesta4 = "n"
+                            break
                 if respuesta3 == "n":
                     while sum(mano_crupier) <= 16:
                         mano_crupier.append(sacar_carta())
+                        print(f"El crupier a sacado un: {mano_crupier[-1]}")
+                        print(f"hasta ahora el crupier tiene {sum(mano_crupier)}")
                     if sum(mano_crupier) > sum(mano_jugador) and sum(mano_crupier) <= 21:
                         print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
                         print("La partida termina, gana la banca")
+                        print(f"Ahora tienes{billetera}")
+                        mano_crupier.clear()
+                        mano_jugador.clear()
                         respuesta4 = "n"
                         break
                     if sum(mano_crupier) < sum(mano_jugador) and sum(mano_crupier) <= 21:
                         print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
-                        print("La partida termino, has ganado")
+                        print(f"La partida termino, has ganado {int(apuesta)}")
                         billetera = billetera + int(apuesta)*2
+                        print(f"Ahora tienes {billetera}")
+                        mano_crupier.clear()
+                        mano_jugador.clear()
                         break
                 if respuesta4.lower() == "n":
                     break
@@ -95,6 +103,8 @@ while respuestaFinal.lower() != "n":
                     if sum(mano_jugador) > 21:
                         print("La partida termina, gana la banca")
                         respuesta4 = input("Quiere seguir jugando? (s/n) ")
+                        mano_jugador.clear()
+                        mano_crupier.clear()
                         if respuesta4.lower() == "s":
                             continue
                         else:
@@ -105,11 +115,15 @@ while respuestaFinal.lower() != "n":
                     if sum(mano_crupier) > sum(mano_jugador) and sum(mano_crupier) <= 21:
                             print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
                             print("la partida termina, gana la banca")
+                            mano_crupier.clear()
+                            mano_jugador.clear()
                             respuesta4 = "n"
                             break
                     if sum(mano_crupier) < sum(mano_jugador) and sum(mano_crupier) <= 21:
                             print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
                             print("la partida termino, has ganado")
+                            mano_jugador.clear()
+                            mano_crupier.clear()
                             break
                 if respuesta4.lower() == "n":
                         break
