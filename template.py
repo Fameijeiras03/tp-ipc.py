@@ -73,7 +73,7 @@ while respuestaFinal.lower() != "n":
                                 mano_crupier.clear()
                                 if respuesta5.lower() == "s":
                                     int(apuesta)*2
-                                    continue
+                                    break
                                 else:
                                     respuesta4 = "n"
                                     break
@@ -96,7 +96,7 @@ while respuestaFinal.lower() != "n":
                             mano_crupier.clear()
                             if respuesta5.lower() == "s":
                                 int(apuesta)*2
-                                continue
+                                break
                             else:
                                 respuesta4 = "n"
                                 break
@@ -108,14 +108,18 @@ while respuestaFinal.lower() != "n":
                         print(f"Ahora tienes {billetera}")
                         mano_crupier.clear()
                         mano_jugador.clear()
+                        respuesta4 = "n"
                         break
                 if respuesta4.lower() == "n":
                     break
+                if billetera <= 0:
+                    print("No tiene dinero, vuelva en otro momento")
+                    exit()
                 if int(apuesta) > billetera:
                     while int(apuesta) > billetera:
                         print(f'No tiene ese dinero, solo posee {billetera}')
                         apuesta = input('Ingrese otra apuesta ')
-            if billetera < 0:
+            if billetera <= 0:
                 print("No tiene dinero, vuelva en otro momento")
                 exit()
         if respuesta2 == "n":
