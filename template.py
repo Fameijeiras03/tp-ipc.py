@@ -123,6 +123,7 @@ while respuestaFinal.lower() != "n":
                 print("No tiene dinero, vuelva en otro momento")
                 exit()
         if respuesta2 == "n":
+            print("Bueno, practiquemos")
             while respuesta3.lower() == "s":
                 respuesta4 = ""
                 mano_jugador.append(sacar_carta())
@@ -156,9 +157,7 @@ while respuestaFinal.lower() != "n":
                     else:
                         continue
                 if (sum(mano_crupier) < sum(mano_jugador)) or sum(mano_crupier) >= 22:
-                    print(
-                        f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
-                    print(f"La partida termino, has ganado {int(apuesta)}")
+                    print(f"Tus puntos son {sum(mano_jugador)}, y los de la mesa son {sum(mano_crupier)}")
                     mano_crupier.clear()
                     mano_jugador.clear()
                     respuesta4 = input("Quiere volver a jugar? (s/n) ")
