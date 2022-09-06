@@ -50,6 +50,7 @@ while respuestaFinal.lower() != "n":
                         mano_jugador.append(sacar_carta())          #Comienza a saccar cartas el jugador
                         print('Sus cartas son:', mano_jugador)          #Se van mostrando las cartas que va sacando el jugador
                         print('Usted tiene', sum(mano_jugador), "puntos")           #Se muestra la cantidad total de puntos que tiene el jugador
+                        print(f'El crupier tiene un: {mano_crupier[0]}')
                         if sum(mano_jugador) <= 21:         #Si el jugador posee menos de 21 puntos totales, puede decidir si sigue sacando cartas
                             respuesta3 = input("Desea seguir jugando? (s/n) ")
                             continue
